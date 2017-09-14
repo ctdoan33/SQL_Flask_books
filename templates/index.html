@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books</title>
+</head>
+<body>
+    <h1>My Books</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date Added</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in all_books %}
+            <tr>
+                <td>{{book["title"]}}</td>
+                <td>{{book["author"]}}</td>
+                <td>{{book["date_added"]}}</td>
+                <td>
+                    <form action="/destroy/{{book['id']}}" method="get" style="display: inline">
+                        <input type="submit" value="delete">
+                    </form>
+                    <form action="/update/{{book['id']}}" method="get" style="display: inline">
+                        <input type="submit" value="update">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form action="/add">
+        <input type="submit" value="Add a book">
+    </form>
+</body>
+</html>
