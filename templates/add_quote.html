@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Add a Book</title>
+    <title>Add a Quote</title>
 </head>
 <body class="center">
-    <h1>Add a Book</h1>
+    <h1>Add a Quote</h1>
+    <p><i>For {{title}}</i></p>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         {% for message in messages %}
@@ -16,15 +17,15 @@
         {% endfor %}
         {% endif %}
         {% endwith %}
-    <div class="add">
-        <p>Title: <input form="create" type="text" name="title"></p>
-        <p>Author: <input form="create" type="text" name="author"></p>
-        <form action="/" method="get" class="back">
+    <div class="inline entry">
+        <p>Quote:</p>
+        <form id="quote" action="/quotes/create/{{book_id}}" method="post">
+            <textarea name="quote"></textarea>
+        </form>
+        <form action="/" method="get" class="inline">
             <input type="submit" value="Back to Books" class="red">
         </form>
-        <form action="/create" method="post" id="create">
-            <input type="submit" value="Add book!" class="blue">
-        </form>
+        <input form="quote" type='submit' value="Add Quote" class="inline green confirm">
     </div>
 </body>
 </html>

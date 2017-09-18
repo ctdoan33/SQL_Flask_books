@@ -1,0 +1,53 @@
+.center{
+    text-align: center;
+}
+table{
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: left;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td{
+    border-right: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+th{
+    background-color: #E0E0E0;
+}
+tr:nth-child(odd){
+    background-color: #F0F0F0;
+}
+.inline{
+    display: inline-block;
+}
+.addbook{
+    margin-top: 1em;
+}
+.blue{
+    background-color: lightblue;
+}
+.red{
+    background-color: salmon;
+}
+.green{
+    background-color: lightgreen;
+}
+.add{
+    display: inline-block;
+    text-align: right;
+}
+.back{
+    float: left;
+}
+.confirm{
+    float: right;
+}
+.entry{
+    width: 75%;
+    text-align: left;
+}
+textarea{
+    width: 100%;
+}

@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Books</title>
 </head>
-<body>
+<body class="center">
     <h1>My Books</h1>
     <table>
         <thead>
@@ -20,15 +21,22 @@
         <tbody>
             {% for book in all_books %}
             <tr>
-                <td>{{book["title"]}}</td>
+                <td>
+                    <form action="/quotes/{{book['id']}}" method="get">
+                        <input type=submit value='{{book["title"]}}'>
+                    </form>
+                </td>
                 <td>{{book["author"]}}</td>
                 <td>{{book["date_added"]}}</td>
                 <td>
-                    <form action="/destroy/{{book['id']}}" method="get" style="display: inline">
+                    <form action="/destroy/{{book['id']}}" method="get" class="inline">
                         <input type="submit" value="delete">
                     </form>
-                    <form action="/update/{{book['id']}}" method="get" style="display: inline">
+                    <form action="/update/{{book['id']}}" method="get" class="inline">
                         <input type="submit" value="update">
+                    </form>
+                    <form action="/quotes/add/{{book['id']}}" method="get" class="inline">
+                        <input type="submit" value="add quote">
                     </form>
                 </td>
             </tr>
@@ -36,7 +44,7 @@
         </tbody>
     </table>
     <form action="/add">
-        <input type="submit" value="Add a book">
+        <input type="submit" value="Add a book" class="inline blue addbook">
     </form>
 </body>
 </html>

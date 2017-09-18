@@ -43,6 +43,35 @@ LOCK TABLES `books` WRITE;
 INSERT INTO `books` VALUES (1,'Jane Eyre','Charlotte Brontë','2017-01-16 00:00:01','2017-09-14 00:33:08'),(2,'Dracula','Bram Stoker','2016-12-27 00:00:01','2017-09-14 00:33:08'),(3,'Frankenstein','Mary Shelley','2017-01-05 00:00:01','2017-09-14 00:33:08'),(4,'To the Lighthouse','Virginia Woolf','2017-01-07 00:00:01','2017-09-14 00:33:08'),(5,'Middlemarch','George Eliot','2016-12-29 00:00:01','2017-09-14 00:33:08'),(6,'Jude the Obscure','Thomas Hardy','2016-12-30 00:00:01','2017-09-14 00:33:08');
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `quotes`
+--
+
+DROP TABLE IF EXISTS `quotes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `quotes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `quote` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `book_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `book_id_idx` (`book_id`),
+  CONSTRAINT `book_id` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `quotes`
+--
+
+LOCK TABLES `quotes` WRITE;
+/*!40000 ALTER TABLE `quotes` DISABLE KEYS */;
+INSERT INTO `quotes` VALUES (1,'But his dreams were as gigantic as his surroundings were small.','2017-09-18 00:17:59','2017-09-18 00:17:59',6),(2,'I may do some good before I am dead--be a sort of success as a frightful example of what not to do, and so illustrate a moral story.','2017-09-18 00:17:59','2017-09-18 00:17:59',6);
+/*!40000 ALTER TABLE `quotes` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -53,4 +82,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-14  0:34:04
+-- Dump completed on 2017-09-18 13:08:32

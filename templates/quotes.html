@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Quotes</title>
+</head>
+<body class="center">
+    <h1>Quotes from {{book_quotes[0]["title"]}}</h1>
+    <div class="inline entry">
+        {% for quote in book_quotes %}
+        {% if quote["quote"] %}
+        <p>"{{quote["quote"]}}"</p>
+        {% endif %}
+        {% endfor %}
+        <form action="/" method="get">
+            <input type="submit" value="Back to Books" class="red back">
+        </form>
+        <form action="/quotes/add/{{book_id}}" method="get">
+            <input type="submit" value="Add a Quote" class="blue confirm">
+        </form>
+    </div>
+</body>
+</html>

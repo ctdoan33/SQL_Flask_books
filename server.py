@@ -4,15 +4,15 @@ app = Flask(__name__)
 app.secret_key = "KeepItSecretKeepItSafe"
 mysql = MySQLConnector(app,'book_db')
 @app.route("/")
-def library():
+def index():
     query = "SELECT id, title, author, DATE_FORMAT(created_at, '%b %D %Y') AS date_added FROM books"
     books = mysql.query_db(query)
     return render_template("index.html", all_books=books)
 @app.route("/add", methods=["GET"])
 def add():
     return render_template("add_book.html")
-@app.route("/addbook", methods=["POST"])
-def addbook():
+@app.route("/create", methods=["POST"])
+def create():
     valid = True
     if len(request.form["title"]) < 1:
         flash("Title cannot be blank!")
@@ -29,33 +29,26 @@ def addbook():
         mysql.query_db(query, data)
         return redirect("/")
     return redirect("/add")
-@app.route("/destroy/<ident>", methods=["GET"])
-def delete(ident):
-    session["id"]=int(ident)
+@app.route("/destroy/<book_id>", methods=["GET"])
+def destroy(book_id):
     query = "SELECT title FROM books WHERE id = :id"
-    data = {"id":session["id"]}
-    titledic = mysql.query_db(query, data)
-    return render_template("delete_book.html", title=titledic[0]["title"])
-@app.route("/cancel", methods=["POST"])
-def cancel():
-    session.pop("id")
-    return redirect("/")
-@app.route("/confirm", methods=["POST"])
-def confirm():
+    data = {"id":int(book_id)}
+    book = mysql.query_db(query, data)
+    return render_template("delete_book.html", title=book[0]["title"], book_id=book_id)
+@app.route("/delete/<book_id>", methods=["POST"])
+def delete(book_id):
     query = "DELETE FROM books WHERE id = :id"
-    data = {"id":session["id"]}
+    data = {"id":int(book_id)}
     mysql.query_db(query, data)
-    session.pop("id")
     return redirect("/")
-@app.route("/update/<ident>", methods=["GET"])
-def update(ident):
-    session["id"]=int(ident)
+@app.route("/update/<book_id>", methods=["GET"])
+def update(book_id):
     query = "SELECT title, author FROM books WHERE id = :id"
-    data = {"id":session["id"]}
-    bookinfo = mysql.query_db(query, data)
-    return render_template("update_book.html", title=bookinfo[0]["title"], author=bookinfo[0]["author"])
-@app.route("/change", methods=["POST"])
-def change():
+    data = {"id":int(book_id)}
+    book = mysql.query_db(query, data)
+    return render_template("update_book.html", title=book[0]["title"], author=book[0]["author"], book_id=book_id)
+@app.route("/edit/<book_id>", methods=["POST"])
+def edit(book_id):
     valid = True
     if len(request.form["title"]) < 1:
         flash("Title cannot be blank!")
@@ -68,10 +61,33 @@ def change():
         data = {
             "title":request.form["title"],
             "author":request.form["author"],
-            "id":session["id"]
+            "id":int(book_id)
         }
         mysql.query_db(query, data)
-        session.pop("id")
         return redirect("/")
-    return redirect("/update/"+str(session["id"]))
+    return redirect("/update/"+book_id)
+@app.route("/quotes/<book_id>", methods=["GET"])
+def quote(book_id):
+    query = "SELECT title, quote FROM books LEFT JOIN quotes ON books.id = quotes.book_id WHERE books.id = :id"
+    data = {"id":int(book_id)}
+    book_quotes = mysql.query_db(query, data)
+    return render_template("quotes.html", book_quotes=book_quotes, book_id=book_id)
+@app.route("/quotes/add/<book_id>", methods=["GET"])
+def add_quote(book_id):
+    query = "SELECT title FROM books WHERE id = :id"
+    data = {"id":int(book_id)}
+    book = mysql.query_db(query, data)
+    return render_template("add_quote.html", title=book[0]["title"], book_id=book_id)
+@app.route("/quotes/create/<book_id>", methods=["POST"])
+def create_quote(book_id):
+    if len(request.form["quote"]) < 1:
+        flash("Quote cannot be blank!")
+        return redirect("/quotes/add/"+book_id)
+    query = "INSERT INTO quotes (quote, book_id, created_at, updated_at) VALUES (:quote, :book_id, NOW(), NOW())"
+    data = {
+        "quote":request.form["quote"],
+        "book_id":int(book_id)
+    }
+    mysql.query_db(query, data)
+    return redirect("/quotes/"+book_id)
 app.run(debug=True)
