@@ -27,12 +27,15 @@ tr:nth-child(odd){
 }
 .blue{
     background-color: lightblue;
+    box-shadow: 2px 2px 1px black;
 }
 .red{
     background-color: salmon;
+    box-shadow: 2px 2px 1px black;
 }
 .green{
     background-color: lightgreen;
+    box-shadow: 2px 2px 1px black;
 }
 .add{
     display: inline-block;

@@ -22,22 +22,14 @@
             {% for book in all_books %}
             <tr>
                 <td>
-                    <form action="/quotes/{{book['id']}}" method="get">
-                        <input type=submit value='{{book["title"]}}'>
-                    </form>
+                    <a href="/quotes/{{book['id']}}">{{book["title"]}}</a>
                 </td>
                 <td>{{book["author"]}}</td>
                 <td>{{book["date_added"]}}</td>
                 <td>
-                    <form action="/destroy/{{book['id']}}" method="get" class="inline">
-                        <input type="submit" value="delete">
-                    </form>
-                    <form action="/update/{{book['id']}}" method="get" class="inline">
-                        <input type="submit" value="update">
-                    </form>
-                    <form action="/quotes/add/{{book['id']}}" method="get" class="inline">
-                        <input type="submit" value="add quote">
-                    </form>
+                    <a href="/destroy/{{book['id']}}">delete</a>
+                    <a href="/update/{{book['id']}}">update</a>
+                    <a href="/quotes/add/{{book['id']}}">add quote</a>
                 </td>
             </tr>
             {% endfor %}
