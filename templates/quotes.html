@@ -15,9 +15,7 @@
         <p>"{{quote["quote"]}}"</p>
         {% endif %}
         {% endfor %}
-        <form action="/" method="get">
-            <input type="submit" value="Back to Books" class="red back">
-        </form>
+        <a href="/" class="back"><button class="red">Back to Books</button></a>
         <form action="/quotes/add/{{book_id}}" method="get">
             <input type="submit" value="Add a Quote" class="blue confirm">
         </form>

@@ -17,12 +17,10 @@
         {% endif %}
         {% endwith %}
     <div class="add">
-        <p>Title: <input form="create" type="text" name="title"></p>
-        <p>Author: <input form="create" type="text" name="author"></p>
-        <form action="/" method="get" class="back">
-            <input type="submit" value="Back to Books" class="red">
-        </form>
-        <form action="/create" method="post" id="create">
+        <form action="/create" method="post">
+            <p><label>Title:</label> <input type="text" name="title"></p>
+            <p><label>Author:</label> <input type="text" name="author"></p>
+            <a href="/" class="back"><button class="red" form="#">Back to Books</button></a>
             <input type="submit" value="Add book!" class="blue">
         </form>
     </div>

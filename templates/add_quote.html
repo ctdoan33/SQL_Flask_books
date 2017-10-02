@@ -19,13 +19,11 @@
         {% endwith %}
     <div class="inline entry">
         <p>Quote:</p>
-        <form id="quote" action="/quotes/create/{{book_id}}" method="post">
+        <form action="/quotes/create/{{book_id}}" method="post">
             <textarea name="quote"></textarea>
+            <a href="/" class="back"><button class="red" form="#">Back to Books</button></a>
+            <input type='submit' value="Add Quote" class="inline green confirm">
         </form>
-        <form action="/" method="get" class="inline">
-            <input type="submit" value="Back to Books" class="red">
-        </form>
-        <input form="quote" type='submit' value="Add Quote" class="inline green confirm">
     </div>
 </body>
 </html>

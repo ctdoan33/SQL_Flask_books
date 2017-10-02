@@ -17,12 +17,10 @@
         {% endif %}
         {% endwith %}
     <div class="add">
-        <p>Title: <input form="update" type="text" name="title" value={{title}}></p>
-        <p>Author: <input form="update" type="text" name="author" value={{author}}></p>
-        <form action="/" method="get" class="back">
-            <input type="submit" value="Back to Books" class="red">
-        </form>
-        <form action="/edit/{{book_id}}" method="post" id="update">
+        <p><label>Title:</label> <input form="update" type="text" name="title" value={{title}}></p>
+        <p><label>Author:</label> <input form="update" type="text" name="author" value={{author}}></p>
+        <a href="/" class="back"><button class="red">Back to Books</button></a>
+        <form action="/edit/{{book_id}}" method="post">
             <input form="edit_book" type="submit" value="Update Book" class="blue">
         </form>
     </div>
